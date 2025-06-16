@@ -1,17 +1,36 @@
 /* CSS File for code-of-conduct.html */
 
-ol.gradient-list > li, ol.gradient-list > li::before {
-  box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
+/* --- Root Variables for easy theming --- */
+:root {
+  --gradient-start: rgba(255, 186, 8, 1);
+  --gradient-end: rgba(255, 127, 21, 1);
+  --font-main: 'Nunito', sans-serif;
+  --font-counter: 'Montserrat', sans-serif;
+  --bg-white: #ffffff;
+  --shadow-default: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
+
+/* --- Screen Reader Only Text --- */
+.sr-only {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* --- List Styling --- */
 ol.gradient-list {
   counter-reset: gradient-counter;
   list-style: none;
-  margin: 1.5rem 0;
+  margin: 1.5rem 0 104px 0;
   padding-left: 1rem;
-  margin-bottom: 104px;
 }
+
+/* --- List Item Base Style --- */
 ol.gradient-list > li {
-  background: white;
+  background: var(--bg-white);
   border-radius: 0 0.5rem 0.5rem 0.5rem;
   counter-increment: gradient-counter;
   margin-top: 1rem;
@@ -19,30 +38,58 @@ ol.gradient-list > li {
   padding: 1.2rem 1.2rem 1.2rem 3.5rem;
   position: relative;
   font-size: 1.3rem;
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-main);
+  box-shadow: var(--shadow-default);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-ol.gradient-list > li::before, ol.gradient-list > li::after {
-  background: linear-gradient(135deg, rgba(255,186,8,1) 0%, rgba(255,127,21,1) 100%);
+
+/* --- Hover Effect --- */
+ol.gradient-list > li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Counter Badge --- */
+ol.gradient-list > li::before,
+ol.gradient-list > li::after {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
   border-radius: 1rem 1rem 0 1rem;
   content: '';
   height: 3rem;
   left: -1rem;
-  overflow: hidden;
   position: absolute;
   top: -1rem;
   width: 3rem;
 }
+
 ol.gradient-list > li::before {
-  align-items: flex-end;
   content: counter(gradient-counter);
   color: #fff;
   display: flex;
-  font: 900 1.5em/1 'Montserrat';
+  align-items: flex-end;
   justify-content: flex-end;
   padding: 0.125em 0.25em;
+  font: 900 1.5em/1 var(--font-counter);
   z-index: 1;
 }
 
+/* --- Space between items --- */
 ol.gradient-list > li + li {
   margin-top: 2rem;
 }
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 600px) {
+  ol.gradient-list > li {
+    font-size: 1rem;
+    padding-left: 2.5rem;
+  }
+
+  ol.gradient-list > li::before,
+  ol.gradient-list > li::after {
+    height: 2.5rem;
+    width: 2.5rem;
+    font-size: 1.2em;
+  }
+}
+
